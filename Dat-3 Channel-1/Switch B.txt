@@ -1,0 +1,119 @@
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname SWB
+SWB(config)#int range g0/0- 1
+SWB(config-if-range)#channel-group 1 mode on
+Creating a port-channel interface Port-channel 1
+
+SWB(config-if-range)#
+*Jun 26 08:52:49.814: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel1, changed state to up
+SWB(config-if-range)#int range g0/2- 3
+SWB(config-if-range)#channel-group 2 mode passive
+Creating a port-channel interface Port-channel 2
+
+SWB(config-if-range)#exit
+SWB(config)#exit
+SWB#
+*Jun 26 08:58:46.919: %SYS-5-CONFIG_I: Configured from console by console
+SWB#
+*Jun 26 08:58:48.573: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel2, changed state to up
+SWB#show ip int brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     unassigned      YES unset  up                    up
+GigabitEthernet0/1     unassigned      YES unset  up                    up
+GigabitEthernet0/2     unassigned      YES unset  up                    up
+GigabitEthernet0/3     unassigned      YES unset  up                    up
+GigabitEthernet1/0     unassigned      YES unset  down                  down
+GigabitEthernet1/1     unassigned      YES unset  down                  down
+GigabitEthernet1/2     unassigned      YES unset  down                  down
+GigabitEthernet1/3     unassigned      YES unset  down                  down
+GigabitEthernet2/0     unassigned      YES unset  down                  down
+GigabitEthernet2/1     unassigned      YES unset  down                  down
+GigabitEthernet2/2     unassigned      YES unset  down                  down
+GigabitEthernet2/3     unassigned      YES unset  down                  down
+GigabitEthernet3/0     unassigned      YES unset  down                  down
+GigabitEthernet3/1     unassigned      YES unset  down                  down
+GigabitEthernet3/2     unassigned      YES unset  down                  down
+GigabitEthernet3/3     unassigned      YES unset  down                  down
+Port-channel2          unassigned      YES unset  up                    up
+Port-channel1          unassigned      YES unset  up                    up
+SWB#show etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      N - not in use, no aggregation
+        f - failed to allocate aggregator
+
+        M - not in use, minimum links not met
+        m - not in use, port not aggregated due to minimum links not met
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+        A - formed by Auto LAG
+
+
+Number of channel-groups in use: 2
+Number of aggregators:           2
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)          -        Gi0/0(P)    Gi0/1(P)
+2      Po2(SU)         LACP      Gi0/2(P)    Gi0/3(P)
+
+SWB#show etherchannel port-channel
+                Channel-group listing:
+                ----------------------
+
+Group: 1
+----------
+                Port-channels in the group:
+                ---------------------------
+
+Port-channel: Po1
+------------
+
+Age of the Port-channel   = 0d:00h:08m:19s
+Logical slot/port   = 16/0          Number of ports = 2
+GC                  = 0x00000000      HotStandBy port = null
+Port state          = Port-channel Ag-Inuse
+Protocol            =    -
+Port security       = Disabled
+
+Ports in the Port-channel:
+
+Index   Load   Port     EC state        No of bits
+------+------+------+------------------+-----------
+  0     00     Gi0/0    On                 0
+  0     00     Gi0/1    On                 0
+
+Time since last port bundled:    0d:00h:08m:19s    Gi0/1
+
+Group: 2
+----------
+                Port-channels in the group:
+                ---------------------------
+
+Port-channel: Po2    (Primary Aggregator)
+
+------------
+
+Age of the Port-channel   = 0d:00h:02m:29s
+Logical slot/port   = 16/1          Number of ports = 2
+HotStandBy port = null
+Port state          = Port-channel Ag-Inuse
+Protocol            =   LACP
+Port security       = Disabled
+
+Ports in the Port-channel:
+
+Index   Load   Port     EC state        No of bits
+------+------+------+------------------+-----------
+  0     00     Gi0/2    Passive            0
+  0     00     Gi0/3    Passive            0
+
+Time since last port bundled:    0d:00h:02m:22s    Gi0/3
+Time since last port Un-bundled: 0d:00h:02m:24s    Gi0/3
+
+SWB#

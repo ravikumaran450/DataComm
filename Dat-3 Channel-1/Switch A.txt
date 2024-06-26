@@ -1,0 +1,29 @@
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname SWA
+SWA(config)#int range g0/0- 1
+SWA(config-if-range)#channel-group 1 mode on
+Creating a port-channel interface Port-channel 1
+
+SWA(config-if-range)#
+*Jun 26 08:51:12.853: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel1, changed state to up
+*Jun 26 08:52:23.615: %PM-4-ERR_DISABLE: channel-misconfig (STP) error detected on Po1, putting Gi0/0 in err-disable state
+*Jun 26 08:52:23.621: %PM-4-ERR_DISABLE: channel-misconfig (STP) error detected on Po1, putting Gi0/1 in err-disable state
+*Jun 26 08:52:23.627: %PM-4-ERR_DISABLE: channel-misconfig (STP) error detected on Po1, putting Po1 in err-disable state
+*Jun 26 08:52:24.616: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to down
+*Jun 26 08:52:24.627: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to down
+*Jun 26 08:52:25.620: %LINK-3-UPDOWN: Interface GigabitEthernet0/0, changed state to down
+*Jun 26 08:52:25.628: %LINK-3-UPDOWN: Interface Port-channel1, changed state to down
+*Jun 26 08:52:25.631: %LINK-3-UPDOWN: Interface GigabitEthernet0/1, changed state to down
+*Jun 26 08:52:26.628: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel1, changed state to down
+SWA(config-if-range)#exit
+SWA(config)#int range g0/2- 3
+SWA(config-if-range)#channel-group 2 mode active
+Creating a port-channel interface Port-channel 2
+
+SWA(config-if-range)#
+*Jun 26 08:55:03.378: %EC-5-L3DONTBNDL2: Gi0/2 suspended: LACP currently not enabled on the remote port.
+*Jun 26 08:55:03.405: %EC-5-L3DONTBNDL2: Gi0/3 suspended: LACP currently not enabled on the remote port.
+SWA(config-if-range)#
+*Jun 26 08:58:51.929: %LINEPROTO-5-UPDOWN: Line protocol on Interface Port-channel2, changed state to up
+SWA(config-if-range)#
